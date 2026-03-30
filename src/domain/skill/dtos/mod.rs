@@ -1,0 +1,13 @@
+pub mod archer;
+pub mod assassin;
+pub mod atalanta;
+pub mod codes;
+pub mod fighter;
+pub mod knight;
+pub mod magician;
+pub mod martial;
+pub mod mechanician;
+pub mod pikeman;
+pub mod priestess;
+pub mod shaman;
+pub mod skills;
