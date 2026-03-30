@@ -11,84 +11,76 @@ pub struct InvalidItemCode(pub u32);
 
 impl ItemCode {
     pub const TYPE_MASK: u32 = 0xFFFF_0000;
-    pub const VAR_MASK: u32 = 0x0000_FF00;
+    pub const VAR_MASK:  u32 = 0x0000_FF00;
 
-    pub const fn raw(self) -> u32 {
-        self.0
-    }
-    pub const fn ty_bits(self) -> u32 {
-        self.0 & Self::TYPE_MASK
-    }
-    pub const fn variant(self) -> u8 {
-        ((self.0 & Self::VAR_MASK) >> 8) as u8
-    }
+    pub const fn raw(self) -> u32 { self.0 }
+    pub const fn ty_bits(self) -> u32 { self.0 & Self::TYPE_MASK }
+    pub const fn variant(self) -> u8 { ((self.0 & Self::VAR_MASK) >> 8) as u8 }
 
     pub const fn is_defined(ty: u32, variant: u8) -> bool {
-        if variant < 1 {
-            return false;
-        }
-        (ty == (ItemType::WA1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WC1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WH1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WM1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WP1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WS1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WS2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WT1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WN1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WD1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WV1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::DA1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::DB1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::DG1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::DS1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::DA2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::CA1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::CA2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::CA5 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::CA6 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::DA3 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::DA4 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::OA1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::OA2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::OM1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::OR1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::OR2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::OS1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::FO1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::SE1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::PR1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::PR2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::PR3 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::PR4 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::OE1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::PM1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::PL1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::PS1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::GG1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::BS1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::EC1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::QT1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::SP1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::GP1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::QW1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::GF1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::PZ1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::PZ2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::CH1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::SD2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::BC1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::BI1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::BI2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::GP2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::MA1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::MA2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::BI3 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::EV1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::EV2 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::WR1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::DR1 as u32) && (variant >= 1 && variant <= 98))
-            || (ty == (ItemType::RR1 as u32) && (variant >= 1 && variant <= 98))
+        if variant < 1 { return false; }
+        (ty == (ItemType::WA1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WC1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WH1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WM1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WP1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WS1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WS2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WT1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WN1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WD1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WV1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::DA1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::DB1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::DG1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::DS1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::DA2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::CA1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::CA2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::CA5 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::CA6 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::DA3 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::DA4 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::OA1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::OA2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::OM1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::OR1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::OR2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::OS1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::FO1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::SE1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::PR1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::PR2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::PR3 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::PR4 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::OE1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::PM1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::PL1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::PS1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::GG1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::BS1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::EC1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::QT1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::SP1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::GP1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::QW1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::GF1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::PZ1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::PZ2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::CH1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::SD2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::BC1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::BI1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::BI2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::GP2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::MA1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::MA2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::BI3 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::EV1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::EV2 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::WR1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::DR1 as u32) && (variant >= 1 && variant <= 98)) ||
+        (ty == (ItemType::RR1 as u32) && (variant >= 1 && variant <= 98))
     }
 
     pub const WA101: ItemCode = ItemCode((ItemType::WA1 as u32) | ((1u32) << 8));
@@ -6228,6 +6220,7 @@ impl ItemCode {
     pub const RR196: ItemCode = ItemCode((ItemType::RR1 as u32) | ((96u32) << 8));
     pub const RR197: ItemCode = ItemCode((ItemType::RR1 as u32) | ((97u32) << 8));
     pub const RR198: ItemCode = ItemCode((ItemType::RR1 as u32) | ((98u32) << 8));
+
 }
 
 impl TryFrom<u32> for ItemCode {
